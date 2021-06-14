@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Entertainment</string>
+    <string name="app_title">News</string>
+    <string name="select">Select Your Preference</string>
+    <string name="Watch">Watch live news</string>
+    <string name="Read">Read news</string>
+    <string name="Times_of_India">Times Of India</string>
+    <string name="NDTV">NDTV</string>
+    <string name="India_Today">India Today</string>
+    <string name="Indian_express">Indian Express</string>
+    <string name="firstpost">Firstpost</string>
+    <string name="message">At Your Service, 24x7</string>
+    <string name="feedback">Contact us</string>
+    <string name="app_info">App info</string>
+    <string name="app_info_header">App Info</string>
+    <string name="developer_info">Developed by Devansh Sampat</string>
+    <string name="share">Share</string>
+    <string name="share_via">Share Via</string>
+    <string name="language_chooser">Choose Language</string>
+    <string name="Gujarati">Gujarati</string>
+    <string name="Hindi">Hindi</string>
+    <string name="Marathi">Marathi</string>
+    <string name="English">English</string>
+    <string name="Internet_connection">No internet</string>
+    <string name="wifi">Turn on wifi</string>
+    <string name="refresh">Refresh</string>
+    <string name="default_notification_channel_id">General</string>
+    <string name="shortcut1">Downloads</string>
+    <string name="shortcut2">Search</string>
+</resources>

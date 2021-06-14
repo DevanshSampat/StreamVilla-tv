@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:shortcutId="search"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_search_24_red"
+        android:shortcutShortLabel="@string/shortcut2"
+        android:shortcutLongLabel="@string/shortcut2"
+        android:shortcutDisabledMessage="@string/shortcut2"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.news"
+            android:targetClass="com.example.news.SearchActivity"/>
+        <category android:name = "android.shortcut.search"/>
+    </shortcut>
+    <shortcut
+        android:shortcutId="download"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_arrow_downward_24_red"
+        android:shortcutShortLabel="@string/shortcut1"
+        android:shortcutLongLabel="@string/shortcut1"
+        android:shortcutDisabledMessage="@string/shortcut1"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.news"
+            android:targetClass="com.example.news.QueuedDownloadsActivity"/>
+        <category android:name = "android.shortcut.download"/>
+    </shortcut>
+</shortcuts>

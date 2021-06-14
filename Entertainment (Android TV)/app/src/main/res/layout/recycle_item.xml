@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="#CCCCCC"
+        android:layout_margin="10dp"
+        android:id="@+id/content_details"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/selectable_background">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:id="@+id/image"
+                android:layout_margin="15dp"
+                android:transitionName="image_movie"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher_foreground"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Content Name"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/title"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:transitionName="text_movie"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@android:color/black"
+                    android:text="date"
+                    android:textSize="12sp"
+                    android:id="@+id/subtitle"
+                    android:layout_marginHorizontal="10dp"/>
+
+                <androidx.cardview.widget.CardView
+                     android:id="@+id/progress_card"
+                     android:layout_width="match_parent"
+                     android:layout_height="10dp"
+                     android:layout_marginHorizontal="10dp"
+                     app:cardBackgroundColor="#CCAAAAAA"
+                     app:cardCornerRadius="5dp"
+                     android:visibility="gone">
+
+                     <RelativeLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent">
+
+                         <ProgressBar
+                             android:id="@+id/movie_progress"
+                             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                             android:layout_width="match_parent"
+                             android:layout_height="match_parent"
+                             android:progressBackgroundTint="#CCAAAAAA"
+                             android:progressTint="@android:color/holo_red_light"
+                             android:scaleY="10" />
+                     </RelativeLayout>
+                 </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
