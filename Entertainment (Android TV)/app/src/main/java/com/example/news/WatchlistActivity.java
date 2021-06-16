@@ -2,6 +2,7 @@ package com.example.news;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +43,7 @@ public class WatchlistActivity extends AppCompatActivity {
         registerReceiver(broadcastReceiver,new IntentFilter("REMOVED_FROM_WATCHLIST"));
         recyclerView = findViewById(R.id.recycle);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         if (new Theme(this).isInDarkMode())
             findViewById(R.id.layout).setBackgroundColor(Color.BLACK);
         try {

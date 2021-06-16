@@ -85,7 +85,6 @@
             android:banner="@drawable/app_icon_tv"
             android:icon="@drawable/ic_launcher_foreground"
             android:logo="@mipmap/ic_launcher"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

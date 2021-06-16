@@ -9,25 +9,30 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentEnd="true"
         android:id="@+id/filter"
-        android:layout_below="@id/search_card"
+        android:layout_alignTop="@id/search_card"
+        android:layout_alignBottom="@id/search_card"
         android:layout_marginEnd="15dp"
         app:cardBackgroundColor="#0C61C8"
         app:cardCornerRadius="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/selectable_background"
         android:onClick="showFilters">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Search Filter"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -49,6 +54,7 @@
         android:id="@+id/result"
         android:layout_below="@id/search_card"
         android:text="Loading..."
+        android:visibility="gone"
         android:textSize="20sp"
         android:layout_marginStart="10dp"
         android:textColor="@android:color/black"/>
@@ -70,6 +76,9 @@
             android:layout_margin="10dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
             app:cardCornerRadius="20dp">
             <RelativeLayout
@@ -92,6 +101,9 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
             app:cardCornerRadius="20dp">
             <RelativeLayout
@@ -114,6 +126,9 @@
             android:layout_margin="10dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
             app:cardCornerRadius="20dp">
             <RelativeLayout
@@ -136,6 +151,9 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
             app:cardCornerRadius="20dp">
             <RelativeLayout
@@ -158,6 +176,9 @@
             android:layout_margin="10dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
             app:cardCornerRadius="20dp">
             <RelativeLayout
@@ -180,6 +201,9 @@
             android:layout_margin="10dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
             app:cardCornerRadius="20dp">
             <RelativeLayout
@@ -202,6 +226,9 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
             app:cardCornerRadius="20dp">
             <RelativeLayout
@@ -236,7 +263,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@id/filter"
         android:layout_marginBottom="20dp"
         android:transitionName="search"
         app:cardCornerRadius="25dp"
@@ -251,6 +279,9 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/selectable_background"
                 android:src="@drawable/ic_baseline_search_24" />
 
             <EditText
@@ -273,6 +304,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_baseline_close_24"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/selectable_background"
                 android:visibility="gone" />
             <ImageView
                 android:id="@+id/voice"
@@ -281,6 +315,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"
                 android:onClick="voiceSearch"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/selectable_background"
                 android:src="@drawable/ic_baseline_mic_24" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -289,6 +326,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/result"
-        android:layout_marginTop="20dp"
         android:id="@+id/recycle" />
 </RelativeLayout>

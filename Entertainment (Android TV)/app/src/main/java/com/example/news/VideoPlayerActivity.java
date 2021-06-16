@@ -109,6 +109,7 @@ public class VideoPlayerActivity extends AppCompatActivity{
     private int currentEpisode;
     private String subtitleLink;
     private long leftRightTimeout;
+    private long time_hide_show;
     private PhoneIncomingCallListener phoneCallListener;
     private boolean isThereSubtitle;
     private Dialog dialog;
@@ -546,11 +547,12 @@ public class VideoPlayerActivity extends AppCompatActivity{
                 time=System.currentTimeMillis();
                 final TextView textView = findViewById(R.id.video_title);
                 if(textView.getVisibility()==View.GONE) {
+                    time_hide_show = System.currentTimeMillis();
                     showControls();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if (videoView.isPlaying()&&System.currentTimeMillis()>=time+5000) {
+                            if (videoView.isPlaying()&&System.currentTimeMillis()>=time_hide_show+5000) {
                                 hideControls();
                             }
                         }
@@ -833,12 +835,13 @@ public class VideoPlayerActivity extends AppCompatActivity{
                     return;
                 }
                 showControls();
+                time_hide_show = System.currentTimeMillis();
                 seekBar.setMax(videoView.getDuration()/1000);
                 startTimeCounting();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(!videoView.isPlaying()) return;
+                        if(!videoView.isPlaying()||time_hide_show+5000>System.currentTimeMillis()) return;
                         if(listView.getVisibility()==View.VISIBLE) return;
                         hideControls();
                     }
@@ -954,6 +957,16 @@ public class VideoPlayerActivity extends AppCompatActivity{
                 if(videoView.getCurrentPosition()>=10000) {
                     videoView.seekTo(videoView.getCurrentPosition() - 10000);
                     findViewById(R.id.rewind).startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.anticlockwise));
+                    time_hide_show = System.currentTimeMillis();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(videoView.isPlaying()&&time_hide_show+5000<=System.currentTimeMillis()) {
+                                hideControls();
+                                listView.setVisibility(View.GONE);
+                            }
+                        }
+                    },5000);
                 }
                 if(!videoView.isPlaying()) startTimeCounting();
             }
@@ -964,6 +977,16 @@ public class VideoPlayerActivity extends AppCompatActivity{
                 if(videoView.getCurrentPosition()<=videoView.getDuration()-10000) {
                     findViewById(R.id.forward).startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.clockwise));
                     videoView.seekTo(videoView.getCurrentPosition() + 10000);
+                    time_hide_show = System.currentTimeMillis();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(videoView.isPlaying()&&time_hide_show+5000<=System.currentTimeMillis()) {
+                                hideControls();
+                                listView.setVisibility(View.GONE);
+                            }
+                        }
+                    },5000);
                 }
                 if(!videoView.isPlaying()) startTimeCounting();
             }
@@ -1385,6 +1408,20 @@ public class VideoPlayerActivity extends AppCompatActivity{
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        if(!lock&&findViewById(R.id.video_title).getVisibility()==View.VISIBLE
+        &&(event.getKeyCode()==KeyEvent.KEYCODE_DPAD_LEFT||event.getKeyCode()==KeyEvent.KEYCODE_DPAD_RIGHT
+        ||event.getKeyCode()==KeyEvent.KEYCODE_DPAD_UP||event.getKeyCode()==KeyEvent.KEYCODE_DPAD_DOWN)){
+            time_hide_show = System.currentTimeMillis();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (videoView.isPlaying() && time_hide_show + 5000 <= System.currentTimeMillis()) {
+                        hideControls();
+                        listView.setVisibility(View.GONE);
+                    }
+                }
+            }, 5000);
+        }
         switch(event.getKeyCode()){
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if(!lock&&findViewById(R.id.video_title).getVisibility()!=View.VISIBLE) {
