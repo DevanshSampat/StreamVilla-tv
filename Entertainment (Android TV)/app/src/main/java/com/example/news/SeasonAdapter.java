@@ -46,16 +46,10 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        if(dark){
-            holder.layout.setBackgroundColor(Color.BLACK);
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#363636"));
-            holder.textView.setTextColor(Color.WHITE);
-        }
         holder.itemView.startAnimation(AnimationUtils.loadAnimation(context,R.anim.zoom_in_recycle));
         holder.setIsRecyclable(false);
         holder.textView.setText("Season "+(position+1));
-        Picasso.with(context).load(imageURL).into(holder.imageView);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,EpisodePickerActivity.class);
@@ -76,14 +70,10 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout layout;
         TextView textView;
-        ImageView imageView;
-        CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             layout = itemView.findViewById(R.id.layout);
             textView = itemView.findViewById(R.id.text);
-            imageView = itemView.findViewById(R.id.image);
-            cardView = itemView.findViewById(R.id.card);
         }
     }
 }

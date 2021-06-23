@@ -33,7 +33,7 @@ public class SeasonPickerActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.header)).setText(name);
         final RecyclerView recyclerView = findViewById(R.id.recycle);
         recyclerView.requestFocus();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             @Override

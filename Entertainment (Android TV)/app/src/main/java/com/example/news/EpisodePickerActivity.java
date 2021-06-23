@@ -37,7 +37,7 @@ public class EpisodePickerActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.header)).setText(header);
         final RecyclerView recyclerView = findViewById(R.id.recycle);
         recyclerView.requestFocus();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             @Override
