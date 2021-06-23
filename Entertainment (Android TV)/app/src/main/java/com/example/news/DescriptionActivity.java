@@ -309,13 +309,6 @@ public class DescriptionActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ScrollView scrollView = findViewById(R.id.layout);
-                scrollView.fullScroll(View.FOCUS_DOWN);
-            }
-        }, 500);
         downloaded = false;
         if (new File(getApplicationContext().getExternalFilesDir(null),
                 getIntent().getStringExtra("name").replace(' ', '_').replace(':', '_') + ".mp4").exists()) {

@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DescriptionActivity"
+    android:gravity="center_vertical"
     android:id="@+id/layout">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <ImageView
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:layout_marginTop="75dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="@drawable/bg_movie_description"
             android:transitionName="image_movie"
             android:id="@+id/image"
             android:scaleType="fitXY"
@@ -23,61 +19,63 @@
         <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image"
+            android:layout_alignParentBottom="true"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_alignStart="@id/image"
             android:layout_alignEnd="@id/image"
             android:progressTint="@android:color/holo_red_light"
             android:id="@+id/progress_of_movie"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/center"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="30dp"
+        android:gravity="center_vertical">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/image"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
-            android:layout_toEndOf="@id/image"
-            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
             android:textAlignment="textStart"
             android:transitionName="text_movie"
             android:textSize="30sp"
+            android:textColor="@android:color/white"
             android:id="@+id/title"
             android:text="Movie Name"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_marginTop="10dp"
-            android:layout_alignStart="@id/title"
-            android:layout_alignEnd="@id/title"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
             android:textAlignment="textStart"
             android:id="@+id/description"
             android:textSize="20sp"
+            android:textColor="@android:color/white"
             android:text="No Description"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/title"
-            android:layout_alignEnd="@id/title"
-            android:layout_below="@id/description"
-            android:layout_marginTop="5dp"
             android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_marginHorizontal="20dp"
             android:text="No Views"
             android:id="@+id/views"/>
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/views"
             android:layout_marginTop="20dp"
-            android:layout_alignStart="@id/title"
-            android:layout_alignEnd="@id/title"
-            app:cardBackgroundColor="@android:color/darker_gray"
-            app:cardCornerRadius="30dp"
             android:id="@+id/watch"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="@drawable/selectable_background">
+            android:background="@drawable/bg_select_description">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -93,6 +91,7 @@
                     android:layout_marginTop="100dp"
                     android:layout_marginBottom="-100dp"
                     android:progress="100"
+                    android:visibility="invisible"
                     android:progressTint="#43A047"
                     android:scaleY="1000" />
                 <TextView
@@ -110,20 +109,40 @@
                     android:textSize="20sp" />
             </RelativeLayout>
 
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/title"
-            android:layout_alignEnd="@id/title"
-            android:layout_below="@id/play_from_beginning"
             android:layout_marginTop="15dp"
-            app:cardBackgroundColor="#0C61C8"
-            app:cardCornerRadius="30dp"
+            android:id="@+id/play_from_beginning"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/bg_select_description">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Play From Beginning"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:id="@+id/download"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="@drawable/selectable_background">
+            android:background="@drawable/bg_select_description">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -141,22 +160,17 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="7dp"/>
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/title"
-            android:layout_alignEnd="@id/title"
-            android:layout_below="@id/download"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="30dp"
-            app:cardBackgroundColor="#8E24AA"
-            app:cardCornerRadius="30dp"
             android:id="@+id/watchlist"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="@drawable/selectable_background">
+            android:background="@drawable/bg_select_description">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -174,38 +188,6 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="7dp"/>
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@id/title"
-            android:layout_alignEnd="@id/title"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/watch"
-            app:cardBackgroundColor="@android:color/holo_red_light"
-            app:cardCornerRadius="30dp"
-            android:id="@+id/play_from_beginning"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="@drawable/selectable_background">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="20sp"
-                    android:text="Play From Beginning"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginBottom="7dp"/>
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
-</ScrollView>
+        </LinearLayout>
+        </LinearLayout>
+ </RelativeLayout>

@@ -80,6 +80,8 @@
             android:focusable="true"
             android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
+            android:id="@+id/comedy"
+            android:onClick="filterSearchList"
             app:cardCornerRadius="20dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -91,7 +93,6 @@
                 android:text="TV Shows"
                 android:layout_margin="5dp"
                 android:layout_centerInParent="true"
-                android:onClick="filterSearchList"
                 android:textColor="@android:color/white"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -105,6 +106,8 @@
             android:focusable="true"
             android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
+            android:id="@+id/news"
+            android:onClick="filterSearchList"
             app:cardCornerRadius="20dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -129,6 +132,8 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/selectable_background"
+            android:id="@+id/kids"
+            android:onClick="filterSearchList"
             app:cardBackgroundColor="@android:color/holo_red_light"
             app:cardCornerRadius="20dp">
             <RelativeLayout
@@ -155,6 +160,8 @@
             android:focusable="true"
             android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
+            android:id="@+id/sport"
+            android:onClick="filterSearchList"
             app:cardCornerRadius="20dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -180,6 +187,8 @@
             android:focusable="true"
             android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
+            android:id="@+id/movie"
+            android:onClick="filterSearchList"
             app:cardCornerRadius="20dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -205,6 +214,8 @@
             android:focusable="true"
             android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
+            android:id="@+id/classic"
+            android:onClick="filterSearchList"
             app:cardCornerRadius="20dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -230,6 +241,8 @@
             android:focusable="true"
             android:foreground="@drawable/selectable_background"
             app:cardBackgroundColor="@android:color/holo_red_light"
+            android:id="@+id/all"
+            android:onClick="filterSearchList"
             app:cardCornerRadius="20dp">
             <RelativeLayout
                 android:layout_width="match_parent"

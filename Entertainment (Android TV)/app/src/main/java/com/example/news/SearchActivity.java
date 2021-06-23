@@ -602,18 +602,37 @@ public class SearchActivity extends AppCompatActivity {
 
     public void filterSearchList(View view) {
         GridLayout gridLayout = (GridLayout) findViewById(R.id.options);
-        TextView textView = (TextView)view;
-        if(textView.getText().toString().toLowerCase().equals("no filter"))
-        {
-            TextView text = (TextView) findViewById(R.id.filter_text);
-            text.setText("Search Filter");
-            getItems();
+        String filter_from_card="";
+        switch (view.getId()){
+            case R.id.all:{
+                getItems();
+                break;
+            }
+            case R.id.comedy:{
+                applyFilter("comedy");
+                break;
+            }
+            case R.id.movie:{
+                applyFilter("movie");
+                break;
+            }
+            case R.id.classic:{
+                applyFilter("classic");
+                break;
+            }
+            case R.id.kids:{
+                applyFilter("kids");
+                break;
+            }
+            case R.id.sport:{
+                applyFilter("sport");
+                break;
+            }
+            case R.id.news:{
+                applyFilter("news");
+                break;
+            }
         }
-        else if(textView.getText().toString().toLowerCase().equals("tv shows"))
-        {
-            applyFilter("comedy");
-        }
-        else applyFilter(textView.getText().toString().toLowerCase());
         gridLayout.setVisibility(View.GONE);
         Animation end = AnimationUtils.loadAnimation(this,R.anim.zoom_out);
         gridLayout.startAnimation(end);
