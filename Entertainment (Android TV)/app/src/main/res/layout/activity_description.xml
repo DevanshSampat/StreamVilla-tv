@@ -16,16 +16,7 @@
             android:id="@+id/image"
             android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher"/>
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_alignStart="@id/image"
-            android:layout_alignEnd="@id/image"
-            android:progressTint="@android:color/holo_red_light"
-            android:id="@+id/progress_of_movie"/>
-    <TextView
+     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -65,6 +56,7 @@
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="30dp"
             android:text="No Views"
             android:id="@+id/views"/>
 
@@ -93,13 +85,22 @@
                     android:progress="100"
                     android:visibility="invisible"
                     android:progressTint="#43A047"
+                    android:progressBackgroundTint="@android:color/transparent"
                     android:scaleY="1000" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/watch_image"
+                    android:src="@drawable/ic_baseline_play_arrow_24"/>
                 <TextView
                     android:id="@+id/play_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/watch_image"
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="7dp"
                     android:layout_marginEnd="20dp"
@@ -107,6 +108,15 @@
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@id/play_text"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:progressTint="@android:color/white"
+                    android:id="@+id/progress_of_movie"/>
             </RelativeLayout>
 
         </LinearLayout>
@@ -121,12 +131,19 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/replay_image"
+                    android:src="@drawable/ic_baseline_replay_24"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    android:layout_toEndOf="@+id/replay_image"
                     android:text="Play From Beginning"
-                    android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:layout_centerInParent="true"
                     android:layout_marginStart="20dp"
@@ -146,15 +163,22 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/download_image"
+                    android:src="@drawable/ic_baseline_arrow_download_24"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:text="Save To Device"
+                    android:layout_toEndOf="@id/download_image"
                     android:id="@+id/text_download"
                     android:textColor="@android:color/white"
                     android:layout_centerInParent="true"
-                    android:textAlignment="center"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="7dp"
@@ -174,15 +198,21 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/watchlist_image"
+                    android:src="@drawable/ic_baseline_playlist_add_24"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:text="Add to watchlist"
+                    android:layout_toEndOf="@id/watchlist_image"
                     android:id="@+id/text_watchlist"
                     android:textColor="@android:color/white"
-                    android:layout_centerInParent="true"
-                    android:textAlignment="center"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="7dp"
