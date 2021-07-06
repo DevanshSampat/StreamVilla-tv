@@ -8,15 +8,15 @@
     android:gravity="center_vertical"
     android:id="@+id/layout">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:foreground="@drawable/bg_movie_description"
-            android:transitionName="image_movie"
-            android:id="@+id/image"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"/>
-     <TextView
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/bg_movie_description"
+        android:transitionName="image_movie"
+        android:id="@+id/image"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"/>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:layout_toStartOf="@id/center"
         android:orientation="vertical"
+        android:id="@+id/buttons"
         android:layout_marginHorizontal="30dp"
         android:gravity="center_vertical">
         <TextView
@@ -50,16 +51,6 @@
             android:textColor="@android:color/white"
             android:text="No Description"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@android:color/white"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="30dp"
-            android:text="No Views"
-            android:id="@+id/views"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,20 +64,6 @@
                 android:layout_height="match_parent"
                 android:id="@+id/watch_layout">
 
-                <ProgressBar
-                    android:id="@+id/download_progress"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignBottom="@id/play_text"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginBottom="-100dp"
-                    android:progress="100"
-                    android:visibility="invisible"
-                    android:progressTint="#43A047"
-                    android:progressBackgroundTint="@android:color/transparent"
-                    android:scaleY="1000" />
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -108,15 +85,6 @@
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="40dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_below="@id/play_text"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:progressTint="@android:color/white"
-                    android:id="@+id/progress_of_movie"/>
             </RelativeLayout>
 
         </LinearLayout>
@@ -124,39 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:id="@+id/play_from_beginning"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/bg_select_description">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="30dp"
-                    android:id="@+id/replay_image"
-                    android:src="@drawable/ic_baseline_replay_24"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_toEndOf="@+id/replay_image"
-                    android:text="Play From Beginning"
-                    android:textColor="@android:color/white"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginBottom="7dp"/>
-            </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:id="@+id/download"
+            android:id="@+id/seasons_and_episodes"
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/bg_select_description">
@@ -169,12 +105,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="30dp"
                     android:id="@+id/download_image"
-                    android:src="@drawable/ic_baseline_arrow_download_24"/>
+                    android:src="@drawable/ic_baseline_format_list_numbered_24"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Save To Device"
+                    android:text="Seasons and Episodes"
                     android:layout_toEndOf="@id/download_image"
                     android:id="@+id/text_download"
                     android:textColor="@android:color/white"
@@ -219,5 +155,5 @@
                     android:layout_marginBottom="7dp"/>
             </RelativeLayout>
         </LinearLayout>
-        </LinearLayout>
- </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

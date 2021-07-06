@@ -206,17 +206,13 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
                     context.startActivity(intent);
                 }
                 else if(contentData[position].getLink().equals("webseries")){
-                    /*intent = new Intent(context,SeasonPickerActivity.class);
+                    intent = new Intent(context,WebSeriesDescriptionActivity.class);
                     intent.putExtra("name",contentData[position].getName());
                     intent.putExtra("dbName",contentData[position].getDataBaseName());
                     intent.putExtra("image",contentData[position].getImage());
+                    intent.putExtra("description",contentData[position].getDate());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    printHistory(contentData[position].getName());
-                    new Sync().uploadHistory(context);
-                    new Sync().addToQuickPicks(context,contentData[position].getDataBaseName());
                     context.startActivity(intent);
-                */
-                    showWatchPopUpForWebSeries(position);
                 }
                 else
                 {

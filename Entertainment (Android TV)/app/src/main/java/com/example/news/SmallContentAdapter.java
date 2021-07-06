@@ -220,17 +220,13 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
                     context.startActivity(intent);
                 }
                 else if(contentData[position].getLink().equals("webseries")){
-                    /*intent = new Intent(context,SeasonPickerActivity.class);
+                    intent = new Intent(context,WebSeriesDescriptionActivity.class);
                     intent.putExtra("name",contentData[position].getName());
                     intent.putExtra("dbName",contentData[position].getDataBaseName());
                     intent.putExtra("image",contentData[position].getImage());
+                    intent.putExtra("description",contentData[position].getDate());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    printHistory(contentData[position].getName());
-                    new Sync().uploadHistory(context);
-                    new Sync().addToQuickPicks(context,contentData[position].getDataBaseName());
                     context.startActivity(intent);
-                */
-                    showWatchPopUpForWebSeries(position);
                 }
                 else
                 {
@@ -394,11 +390,7 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
         lp.verticalMargin = 5;
         lp.horizontalMargin = 5;
         dialog.getWindow().setAttributes(lp);
-        String season = "1";
-        String episode = "1";
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        String combo = "s1e1";
-        String videoPosition = "0";
         ((TextView)dialog.findViewById(R.id.text_download)).setText("See all Seasons & Episodes");
         ((TextView)dialog.findViewById(R.id.title)).setText(data.getName());
         ((TextView)dialog.findViewById(R.id.description)).setText(data.getDate());
@@ -448,6 +440,10 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
             ((TextView)dialog.findViewById(R.id.description)).setTextColor(Color.parseColor("#CCCCCC"));
         }
         else ((CardView)dialog.findViewById(R.id.watch_card)).setCardBackgroundColor(Color.parseColor("#CCCCCC"));
+        String season = "1";
+        String episode = "1";
+        String combo = "s1e1";
+        String videoPosition = "0";
         if(new File(context.getFilesDir(),data.getName().replace(' ','+')+".txt").exists()){
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(context.openFileInput(data.getName().replace(' ','+')+".txt")));

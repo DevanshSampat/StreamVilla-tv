@@ -31,8 +31,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WatchlistActivity"
+        <activity android:name=".WebSeriesDescriptionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".WatchlistActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".EpisodePickerActivity"
             android:screenOrientation="landscape"
