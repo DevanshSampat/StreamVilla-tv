@@ -67,10 +67,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -193,13 +195,19 @@ public class MainActivity extends AppCompatActivity {
         userType = "";
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestIdToken(getString(R.string.google_sign_in_auth))
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null)
         {
             Button btn = (Button) findViewById(R.id.sign_out_button);
-            signIn();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    signIn();
+                }
+            }).start();
             btn.setVisibility(View.VISIBLE);
             getInformation();
         }
@@ -722,8 +730,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-            validate();
             getInformation();
+            firebaseAuthWithGoogle(acct.getIdToken());
             if (getIntent().hasExtra("search"))
             {
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
@@ -740,22 +748,22 @@ public class MainActivity extends AppCompatActivity {
             Log.w("Google", "signInResult:failed code=" + e.getStatusCode());
         }
     }
-    private void updateUserDetails()
-    {
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth = FirebaseAuth.getInstance();
-        user= auth.getCurrentUser();
-        try {
-
-            while (user == null) {
-                user = auth.getCurrentUser();
-            }
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-            user.updateProfile(profile);
-        }
-        catch (Exception e)
-        {
-            updateUserDetails();
-        }
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            user=auth.getCurrentUser();
+                            clicked=true;
+                            first=true;
+                            validate();
+                            // Sign in success, update UI with the signed-in user's information
+                        }
+                    }
+                });
     }
     public void verify(View v)
     {
@@ -839,45 +847,13 @@ public class MainActivity extends AppCompatActivity {
             UserName.setUsername(getApplicationContext(),acct.getEmail());
             auth = FirebaseAuth.getInstance();
             name = acct.getDisplayName();
-            Toast.makeText(this, "Signed in as " + acct.getEmail(), Toast.LENGTH_SHORT).show();
-            auth.createUserWithEmailAndPassword((acct.getEmail()), "12345678").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull final Task<AuthResult> task) {
-                    while(user==null)
-                    {
-                        user=auth.getCurrentUser();
-                    }
-                    GoogleSignInAccount acc2 = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-                    UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(acc2.getDisplayName()).build();
-                    user.updateProfile(profile);
-                    if(user.getDisplayName()==null)
-                    {
-                        user.updateProfile(profile);
-                        Toast.makeText(MainActivity.this,user.getDisplayName(),Toast.LENGTH_SHORT);
-                        popup("Setting up your credentials");
-                    }
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (task.isSuccessful()) {
-                                verifyEmailAddress();
-                            } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                updateUserDetails();
-                            }
-                        }
-                    },1500);
-
-
-                }
-            });
-            auth.signInWithEmailAndPassword(acct.getEmail(), "12345678");
             user=auth.getCurrentUser();
-            new Handler().postDelayed(new Runnable() {
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    if(user!=null) checkUserType();
+                    if (user != null) checkUserType();
                 }
-            },1000);
+            }).start();
             if (acct.getEmail().equals("devansh.sampat@gmail.com")) {
                 Button btn = (Button) findViewById(R.id.add_content);
                 btn.setVisibility(View.VISIBLE);
@@ -935,12 +911,17 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), RestoreDownloadsActivity.class);
                         intent.putExtra("restore", restoreMovies);
                         if (dark) intent.putExtra("dark", true);
-                        new Handler().postDelayed(new Runnable() {
+                        if(restoreMovies.length()!=0&&!new File(getApplicationContext().getFilesDir(),"DownloadedVideos.txt").exists())
+                        {
+                            startActivity(intent);
+                            sendIntroductoryNotification(600000);
+                        }
+                        new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 makeTimeFiles();
                             }
-                        },1000);
+                        }).start();
                     }
                     else makeWatchTimingsFile();
                     Button btn = (Button) findViewById(R.id.beta);
@@ -972,18 +953,18 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         }, 500);
-                        new Handler().postDelayed(new Runnable() {
+                        new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 uploadUserDetails();
                             }
-                        }, 1000);
+                        }).start();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } catch (Exception e) {
                     if(userType==null||!userType.equals("beta"))userType = "stable";
-                     online_history= new String();
+                    online_history= new String();
                     try{
                         FileInputStream fis = null;
                         fis = getApplicationContext().openFileInput("History.txt");
@@ -1007,18 +988,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
-        documentReference.get().addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.println(Log.ASSERT,"doc","failed");
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        uploadUserDetails();
-                    }
-                }, 1000);
-             }
         });
         documentReference = firestore.collection("Data").document("Trending");
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -1264,7 +1233,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openActivity(View v)
     {
-        if(user!=null&&!user.isEmailVerified())
+        if(user!=null)
         {
             Toast.makeText(this,"Verify your email first",Toast.LENGTH_SHORT).show();
             TextView textView = (TextView) findViewById(R.id.verify);
@@ -1978,7 +1947,7 @@ public class MainActivity extends AppCompatActivity {
             FileOutputStream fos = openFileOutput("UserWatchTimings.txt",MODE_PRIVATE);
             fos.write(movie_watch_session_times.getBytes());
             fos.close();
-            new Handler().postDelayed(new Runnable() {
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -1986,29 +1955,26 @@ public class MainActivity extends AppCompatActivity {
                         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
                         FileOutputStream fileOutputStream;
                         String str;
-                        while ((str=br.readLine())!=null)
-                        {
-                            File file = new File(getApplicationContext().getFilesDir(),str);
-                            if(!file.exists()) file.createNewFile();
-                            fileOutputStream=openFileOutput(str,MODE_PRIVATE);
-                            str=br.readLine();
-                            if(str==null)
-                            {
+                        while ((str = br.readLine()) != null) {
+                            File file = new File(getApplicationContext().getFilesDir(), str);
+                            if (!file.exists()) file.createNewFile();
+                            fileOutputStream = openFileOutput(str, MODE_PRIVATE);
+                            str = br.readLine();
+                            if (str == null) {
                                 findViewById(R.id.show_quick_and_trending).callOnClick();
                                 return;
                             }
                             fileOutputStream.write(str.getBytes());
                             fileOutputStream.close();
                         }
-                        if(movie_watch_session_times.equals("")) movie_watch_session_times="0";
-                        if(user.isEmailVerified()) findViewById(R.id.show_quick_and_trending).callOnClick();
+                        if (movie_watch_session_times.equals("")) movie_watch_session_times = "0";
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-            },2000);
+            }).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -2103,4 +2069,26 @@ public class MainActivity extends AppCompatActivity {
     public void showWatchlist(View view) {
         startActivity(new Intent(getApplicationContext(),WatchlistActivity.class));
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        restarted=true;
+        if(user!=null&&!show) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    FirebaseFirestore.getInstance().collection("Users").document(UserName.getUsername()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            online_history = documentSnapshot.getString("Watch History");
+                            quick_picks = documentSnapshot.getString("Quick Picks");
+                            getRecents();
+                        }
+                    });
+                }
+            }).start();
+        }
+    }
+
 }

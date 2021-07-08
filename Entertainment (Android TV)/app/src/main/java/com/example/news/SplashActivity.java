@@ -56,7 +56,12 @@ public class SplashActivity extends AppCompatActivity {
             finish();
             return;
         }
-        getMessage();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getMessage();
+            }
+        }).start();
         TextView textView = (TextView) findViewById(R.id.name);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.up_start);
         ImageView imageView = (ImageView) findViewById(R.id.icon);

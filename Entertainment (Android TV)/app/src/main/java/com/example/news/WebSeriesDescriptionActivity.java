@@ -104,6 +104,13 @@ public class WebSeriesDescriptionActivity extends AppCompatActivity {
                 intent.putExtra("link",link);
                 printHistory(getIntent().getStringExtra("name"));
                 startActivity(intent);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Sync().uploadHistory(WebSeriesDescriptionActivity.this);
+                        new Sync().addToQuickPicks(WebSeriesDescriptionActivity.this,getIntent().getStringExtra("dbName"));
+                    }
+                }).start();
              }
         });
         loadData();
