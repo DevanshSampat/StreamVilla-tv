@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         app:cardCornerRadius="30dp"
         android:layout_below="@id/image_card"
         android:layout_marginTop="-60dp"
@@ -18,16 +18,16 @@
         app:cardBackgroundColor="@android:color/white">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginVertical="60dp"
             android:orientation="vertical">
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/sign_out">
+                android:layout_height="300dp"
+                android:id="@+id/scrollview">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="300dp"
                     android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -63,7 +63,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/all_settings"
+                android:layout_below="@id/scrollview"
                 android:layout_marginVertical="15dp"
                 android:layout_marginHorizontal="30dp"
                 android:clickable="true"
@@ -84,7 +84,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/sign_out"
                 android:layout_marginBottom="15dp"
                 android:layout_marginHorizontal="30dp"
                 android:clickable="true"
@@ -107,7 +107,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         app:cardCornerRadius="60dp"
         android:id="@+id/image_card">
         <ImageView

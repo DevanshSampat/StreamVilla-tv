@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +51,7 @@ public class WebSeriesDescriptionActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 try{
                     ArrayList<String> watchList = (ArrayList<String>) documentSnapshot.get("Watchlist");
-                    if(watchList.contains(getIntent().getStringExtra("movie_db")))
+                    if(watchList.contains(getIntent().getStringExtra("dbName")))
                         ((TextView)findViewById(R.id.text_watchlist)).setText("Remove from Watchlist");
                 } catch (Exception e) {
 

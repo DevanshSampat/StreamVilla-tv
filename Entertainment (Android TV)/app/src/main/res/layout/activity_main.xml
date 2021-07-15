@@ -6,18 +6,178 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context=".MainActivity"
-    android:id="@+id/scroll"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="@drawable/selectable_background">
+    android:id="@+id/scroll">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:id="@+id/linear_layout_top"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textSize="40sp"
+                    android:textColor="@android:color/holo_red_light"
+                    android:id="@+id/app_name"
+                    android:textAlignment="textStart" />
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="20dp"
+                    android:rowCount="1"
+                    android:columnCount="3">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/search"
+                        android:layout_marginRight="10dp"
+                        app:cardBackgroundColor="#DADADA"
+                        app:cardCornerRadius="20dp"
+                        android:onClick="searchContent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:transitionName="search"
+                        android:foreground="@drawable/selectable_background">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_baseline_search_24"
+                                android:id="@+id/search_icon"
+                                android:layout_margin="4dp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:textAlignment="center"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:text="Search"
+                                tools:ignore="RtlCompat" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="20dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:id="@+id/watchlist"
+                        android:foreground="@drawable/selectable_background"
+                        android:onClick="showWatchlist"
+                        app:cardBackgroundColor="#363636">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_baseline_playlist_add_24"
+                                android:layout_marginHorizontal="5dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:textColor="@android:color/white"
+                                android:text="Watchlist"/>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/profile_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="#DADADA"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:foreground="@drawable/selectable_background">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                app:cardCornerRadius="15dp">
+                                <ImageView
+                                    android:id="@+id/blank_profile"
+                                    android:layout_width="30dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/blank_profile" />
+                                <ImageView
+                                    android:id="@+id/profile_photo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:visibility="gone" />
+                            </androidx.cardview.widget.CardView>
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="7dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="My Account"
+                                    android:id="@+id/profile_name"
+                                    android:textSize="18sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:text="Tap to sign-in"
+                                    android:visibility="gone"
+                                    android:textSize="25sp" />
+
+                                <TextView
+                                    android:id="@+id/profile_email"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/profile_name"
+                                    android:layout_marginTop="6dp"
+                                    android:layout_alignStart="@id/profile_name"
+                                    android:layout_alignEnd="@id/profile_name"
+                                    android:text="to enjoy latest content  "
+                                    android:visibility="gone"
+                                    android:textSize="15sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </GridLayout>
+
+            </LinearLayout>
             <androidx.cardview.widget.CardView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -30,6 +190,7 @@
                 android:onClick="showSettings"
                 android:clickable="true"
                 android:focusable="true"
+                android:visibility="gone"
                 android:foreground="@drawable/selectable_background">
                 <ImageView
                     android:layout_width="32dp"
@@ -40,7 +201,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/search"
                 android:layout_alignParentStart="true"
                 android:layout_alignBottom="@id/settings"
                 android:layout_alignTop="@id/settings"
@@ -55,91 +215,10 @@
                 android:id="@+id/update_notification"
                 android:visibility="gone"
                 tools:ignore="RtlCompat" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/settings"
-                android:layout_marginTop="15dp"
-                android:textSize="40sp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="15dp"
-                android:textColor="@android:color/holo_red_light"
-                android:id="@+id/app_name"
-                android:textAlignment="textStart" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/profile_info"
-                android:layout_width="500dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/app_name"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="#DADADA"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/selectable_background">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        app:cardCornerRadius="50dp"
-                        android:layout_margin="12dp">
-                        <ImageView
-                            android:id="@+id/blank_profile"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/blank_profile" />
-                        <ImageView
-                            android:id="@+id/profile_photo"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:visibility="gone" />
-                    </androidx.cardview.widget.CardView>
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="124dp">
-
-                        <TextView
-                            android:id="@+id/profile_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:text="Tap to sign-in"
-                            android:textSize="25sp" />
-
-                        <TextView
-                            android:id="@+id/profile_email"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/profile_name"
-                            android:layout_marginTop="6dp"
-                            android:layout_alignStart="@id/profile_name"
-                            android:layout_alignEnd="@id/profile_name"
-                            android:text="to enjoy latest content  "
-                            android:textSize="15sp" />
-                    </RelativeLayout>
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@id/profile_info"
                 android:text="Email not verified.Click here to verify email address"
                 android:textColor="@android:color/holo_red_light"
                 android:layout_marginEnd="20dp"
@@ -163,35 +242,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/search"
-                android:layout_toStartOf="@id/settings"
-                android:layout_alignTop="@id/settings"
-                android:layout_marginEnd="12dp"
-                android:layout_below="@id/sign_out"
-                app:cardBackgroundColor="#DADADA"
-                app:cardCornerRadius="20dp"
-                android:onClick="searchContent"
-                android:clickable="true"
-                android:focusable="true"
-                android:transitionName="search"
-                android:foreground="@drawable/selectable_background">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/ic_baseline_search_24"
-                        android:id="@+id/search_icon"
-                        android:layout_margin="4dp"
-                        android:layout_centerInParent="true"/>
-
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/share"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
@@ -200,6 +250,7 @@
                 app:cardBackgroundColor="#DADADA"
                 app:cardCornerRadius="20dp"
                 android:onClick="searchContent"
+                android:visibility="gone"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/selectable_background">
@@ -224,6 +275,7 @@
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="16sp"
                 android:text="Click for more view options"
+                android:visibility="gone"
                 android:id="@+id/show_quick_and_trending"/>
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -236,10 +288,11 @@
                 android:visibility="gone"/>
         </RelativeLayout>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_light"
             android:textSize="20sp"
+            android:textAlignment="center"
             android:text="Recently Added"
             android:id="@+id/recently_added"
             android:layout_margin="10dp"
@@ -258,10 +311,11 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_light"
             android:textSize="20sp"
+            android:textAlignment="center"
             android:text="Quick Picks"
             android:id="@+id/quick"
             android:layout_margin="10dp"
@@ -279,10 +333,11 @@
                 android:visibility="visible"/>
         </LinearLayout>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_light"
             android:textSize="20sp"
+            android:textAlignment="center"
             android:text="Trending"
             android:id="@+id/trend"
             android:layout_margin="10dp"
@@ -300,10 +355,11 @@
                 android:visibility="visible"/>
         </LinearLayout>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_light"
             android:textSize="20sp"
+            android:textAlignment="center"
             android:text="Popular Categories"
             android:id="@+id/popular_categories"
             android:layout_margin="10dp" />
@@ -615,7 +671,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
                 android:layout_marginStart="40dp"
-                android:layout_below="@id/watchlist"
                 android:id="@+id/my_downloads"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
@@ -627,7 +682,6 @@
                 android:layout_marginEnd="40dp"
                 android:layout_marginStart="40dp"
                 android:layout_below="@id/update"
-                android:id="@+id/watchlist"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:text="My watchlist"

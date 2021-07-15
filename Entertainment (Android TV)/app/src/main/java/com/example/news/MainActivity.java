@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.search).setVisibility(View.INVISIBLE);
         watch_time=new StringBuilder();
         deleteExistingApk();
-        setAppropriateTheme();
+        setDarkTheme();
         findViewById(R.id.show_quick_and_trending).setVisibility(View.GONE);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -230,10 +230,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                  if(user==null) signIn();
-                 else if(findViewById(R.id.settings).getVisibility()==View.VISIBLE)
-                 {
-                     showSignOutDialog();
-                 }
+                 else showSignOutDialog();
             }
         });
         if(!checkInternetConnection())
@@ -319,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView)dialog.findViewById(R.id.info)).setText(str);
             }
         });
+        dialog.findViewById(R.id.all_settings).setVisibility(View.GONE);
         dialog.findViewById(R.id.sign_out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -420,9 +418,6 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.my_downloads);
         button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#363636")));
         button.setTextColor(Color.WHITE);
-        button = (Button) findViewById(R.id.watchlist);
-        button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#363636")));
-        button.setTextColor(Color.WHITE);
         button = (Button) findViewById(R.id.play_local_video);
         button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#363636")));
         button.setTextColor(Color.WHITE);
@@ -505,9 +500,6 @@ public class MainActivity extends AppCompatActivity {
         button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DADADA")));
         button.setTextColor(Color.BLACK);
         button = (Button) findViewById(R.id.my_downloads);
-        button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DADADA")));
-        button.setTextColor(Color.BLACK);
-        button = (Button) findViewById(R.id.watchlist);
         button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DADADA")));
         button.setTextColor(Color.BLACK);
         button = (Button) findViewById(R.id.play_local_video);
@@ -767,57 +759,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void verify(View v)
     {
-        verifyEmailAddress();
     }
-    private void verifyEmailAddress()
-    {
-        auth = FirebaseAuth.getInstance();
-        user= auth.getCurrentUser();
-        try {
-            while (user == null) {
-                user = auth.getCurrentUser();
-            }
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-            user.updateProfile(profile);
-            if(user.getDisplayName()==null)
-            {
-                user.updateProfile(profile);
-            };
-        }
-        catch (Exception e)
-        {
-            verifyEmailAddress();
-        }
-        if(user.getDisplayName()==null)
-        {
-            try {
-                Thread.sleep(300);
-            }
-            catch (Exception e){}
-            user.sendEmailVerification();
-        }
-        else user.sendEmailVerification();
-        Toast.makeText(this, "Verification email sent to " + user.getEmail()+"\nRe-Launch the app after verification", Toast.LENGTH_LONG).show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = getPackageManager().getLaunchIntentForPackage("com.google.android.gm");
-                if(intent!=null)
-                {
-                    startActivity(intent);
-                    finish();
-                }
-                else
-                {
-                    Intent web = new Intent(MainActivity.this,WebActivity.class);
-                    web.putExtra("link","https://mail.google.com");
-                    startActivity(web);
-                    finish();
-                }
-            }
-        }, 1000);
-    }
-
     private void getInformation()
     {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
@@ -1233,14 +1175,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openActivity(View v)
     {
-        if(user!=null)
-        {
-            Toast.makeText(this,"Verify your email first",Toast.LENGTH_SHORT).show();
-            TextView textView = (TextView) findViewById(R.id.verify);
-            textView.setVisibility(View.VISIBLE);
-            return;
-        }
-        else if(user==null)
+        if(user==null)
         {
             signIn();
             return;
@@ -1308,9 +1243,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,SearchActivity.class);
         if(dark) intent.putExtra("dark",true);
         if(user!=null) intent.putExtra("signed_in",true);
-        startActivity(intent,
-                ActivityOptionsCompat.makeSceneTransitionAnimation(this,view,view.getTransitionName()).toBundle());
-        overridePendingTransition(R.anim.up_start,R.anim.up_end);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
     public void showSettings(View view)
@@ -1730,7 +1664,6 @@ public class MainActivity extends AppCompatActivity {
                     ((SmallContentAdapter)recentlyAdded.getAdapter()).setContentData(recentlyAddedContent);
                     recentlyAdded.setVisibility(View.VISIBLE);
                     findViewById(R.id.recently_added).setVisibility(View.VISIBLE);
-                    findViewById(R.id.settings).setVisibility(View.VISIBLE);
                     findViewById(R.id.load_options).setVisibility(View.GONE);
                     ((TextView)findViewById(R.id.profile_email)).setText("Tap for more information");
                     first = false;
@@ -2067,6 +2000,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showWatchlist(View view) {
+        if(user==null) {
+            Toast.makeText(this, "Sign in to see your watchlist", Toast.LENGTH_SHORT).show();
+            return;
+        }
         startActivity(new Intent(getApplicationContext(),WatchlistActivity.class));
     }
     @Override
