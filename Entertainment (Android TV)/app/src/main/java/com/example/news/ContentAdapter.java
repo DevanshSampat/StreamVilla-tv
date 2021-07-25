@@ -219,9 +219,14 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
                     intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(contentData[position].getLink()));
                     printHistory(contentData[position].getName());
-                    new Sync().uploadHistory(context);
-                    new Sync().addToQuickPicks(context,contentData[position].getDataBaseName());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new Sync().uploadHistory(context);
+                            new Sync().addToQuickPicks(context, contentData[position].getDataBaseName());
+                        }
+                    }).start();
                     context.startActivity(intent);
                 }
             }

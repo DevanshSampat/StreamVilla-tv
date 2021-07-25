@@ -233,8 +233,13 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
                     intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(contentData[position].getLink()));
                     printHistory(contentData[position].getName());
-                    new Sync().uploadHistory(context);
-                    new Sync().addToQuickPicks(context,contentData[position].getDataBaseName());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new Sync().uploadHistory(context);
+                            new Sync().addToQuickPicks(context, contentData[position].getDataBaseName());
+                        }
+                    }).start();
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
@@ -340,21 +345,13 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
                             intent.putExtra("online",true);
                             intent.putExtra("movie_db",contentData[position].getDataBaseName());
                             printHistory(contentData[position].getName());
-                            new Sync().addToQuickPicks(context, contentData[position].getDataBaseName());
-                            if(!new File(context.getFilesDir(),"Tutorial.txt").exists())
-                            {
-                                Intent tutorialIntent = new Intent(context,TutorialActivity.class);
-                                tutorialIntent.putExtras(intent.getExtras());
-                                tutorialIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                if(dark) tutorialIntent.putExtra("dark",true);
-                                context.startActivity(tutorialIntent);
-                                try {
-                                    new File(context.getFilesDir(),"Tutorial.txt").createNewFile();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    new Sync().addToQuickPicks(context, contentData[position].getDataBaseName());
+                                    new Sync().uploadHistory(context);
                                 }
-                                return;
-                            }
+                            }).start();
                             context.startActivity(intent);
                         }
                     }
