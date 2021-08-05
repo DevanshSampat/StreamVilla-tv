@@ -2,7 +2,6 @@ package com.example.news;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,17 +12,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.shimmer.Shimmer;
@@ -162,12 +159,11 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
 
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         this.holder = holder;
         this.position = position;
         if(dark)
         {
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#363636"));
             holder.textView.setTextColor(Color.WHITE);
         }
         if(shimmer||contentData==null)
@@ -202,7 +198,7 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
         else holder.progressBar.setVisibility(View.INVISIBLE);
         holder.textView.setText(contentData[position].getName());
         Picasso.with(holder.imageView.getContext()).load(contentData[position].getImage()).into(holder.imageView);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.containerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent;
@@ -245,7 +241,7 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
                 }
             }
         });
-        holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.containerLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 if(contentData[position].getLink().equals("webseries")) {
@@ -335,7 +331,7 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
-                        if(!contentData[position].getLink().contains("(video)")) holder.cardView.callOnClick();
+                        if(!contentData[position].getLink().contains("(video)")) holder.containerLayout.callOnClick();
                         else
                         {
                             Intent intent = new Intent(context, VideoPlayerActivity.class);
@@ -540,7 +536,7 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
 
         ImageView imageView;
         TextView textView;
-        CardView cardView;
+        LinearLayout containerLayout;
         TextView subtitle;
         ShimmerFrameLayout shimmerFrameLayout;
         ProgressBar progressBar;
@@ -548,7 +544,7 @@ public class SmallContentAdapter extends RecyclerView.Adapter<SmallContentAdapte
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
             textView = itemView.findViewById(R.id.title);
-            cardView = itemView.findViewById(R.id.content_details);
+            containerLayout = itemView.findViewById(R.id.content_details);
             progressBar = itemView.findViewById(R.id.movie_progress);
             shimmerFrameLayout = itemView.findViewById(R.id.shimmer_frame);
         }

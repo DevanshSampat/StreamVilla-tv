@@ -549,6 +549,9 @@ public class VideoPlayerActivity extends AppCompatActivity{
                 if(textView.getVisibility()==View.GONE) {
                     time_hide_show = System.currentTimeMillis();
                     showControls();
+                    if(!lock){
+                        findViewById(R.id.pause_button).callOnClick();
+                    }
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
